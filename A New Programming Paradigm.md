@@ -71,6 +71,11 @@ if you want to try it out for yourself. Or, if you prefer, you can execute it ri
 Now while this might seem very simple, you’ve actually gotten the basics for how neural networks work. As your applications get more complex, you’ll continue to use the same techniques. For now, let’s do a quick test with Multiple Choice Questions to see what you’ve learned.
 
 
+=======================
+Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning
+Week 1
+Quiz
+
 
 
 
