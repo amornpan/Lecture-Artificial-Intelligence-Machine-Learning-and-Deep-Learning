@@ -98,7 +98,7 @@ For example, if you then say the **function** was y equals w1 times x1, plus w2 
 $$y =w_1 * x_1 + w_2*x_2 + w_3*x_3 + ... + w_{128} * x_{128}$$
 By figuring out the values of w, then y will be nine, when you have the input value of the shoe.
 
-<img src="./img/cv_neural.png"/>
+![alt text](https://github.com/DayuanTan/AITensorFlowSpecialization/blob/master/img/cv_neural.png)
 
 
 You can modify the 128 here. For example change it to 1024 neurons. By **adding more Neurons** we have to do more calculations, slowing down the process, but in this case they have a good impact -- we do get more accurate. That doesn't mean it's always a case of 'more is better', you can hit the law of diminishing returns very quickly!
@@ -147,7 +147,7 @@ class myCallback(tf.keras.callbacks.Callback):
 ```
 In it, we'll implement the **on_epoch_end** function, which gets called by the callback whenever the epoch ends. It also sends a **logs object** which contains lots of great information about the current state of training.
 
-<img src="./img/callback.png"/>
+![alt text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/callback.png)
 
 ### 1.2.6 Try it yourself
 
