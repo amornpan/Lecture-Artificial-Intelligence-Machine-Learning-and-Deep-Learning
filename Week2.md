@@ -41,6 +41,116 @@ https://colab.research.google.com/github/lmoroney/dlaicourse/blob/master/Course%
 Let's take a look at the code for callbacks, and see how it works. You can see the code here. Here's the notebook with the code already written, and here's the class that we defined to handle the callback, and here is where we instantiate the callback class itself. Finally, here's where we set up the callback to be called as part of the training loop. As we begin training, note that we asked it to train for five epochs. Now, keep an eye on the losses that trains. We want to break when it goes below 0.4, and by the end of the first epoch we're actually getting close already. As the second epoch begins, it has already dropped below 0.4, but the callback hasn't been hit yet. That's because we set it up for on epoch end. It's good practice to do this, because with some data and some algorithms, the loss may vary up and down during the epoch, because all of the data hasn't yet been processed. So, I like to wait for the end to be sure. Now the epoch has ended, and the loss is 0.3563, and we can see that the training ends, even though we've only done two epochs. Note that we're sure we asked for five epochs and that we ended after two, because the loss is below 0.4, which we checked for in the callback. It's pretty cool right?
 
 
+## Introduction to Computer vision
 
+### 1.2.1 Fashion MNIST dataset
+
+[Fashion MNIST dataset:](https://github.com/zalandoresearch/fashion-mnist)
+- 70k images
+- 10 categories
+- Images are 28X28 in gray scale *
+- Can train a neural net
+
+\* Each pixel can be represented in values from zero to 255 and so it's only one byte per pixel. With 28 by 28 pixels in an image, only 784 bytes are needed to store the entire image. 
+
+
+### 1.2.2 Load dataset
+
+```python
+fashion_mnist = keras.datasets.fashion_mnist
+(train_images,train_labels),(test_images,test_labels)=fashion_minist.load_data()
+```
+
+\* Train/test is 60000/10000.
+
+
+### 1.2.3 Normilizing
+You'll notice that all of the values in the number are between 0 and 255. If we are training a neural network, for various reasons **it's easier if we treat all values as between 0 and 1**, a process called '**normalizing**'...and fortunately in Python it's easy to normalize a list like this without looping. You do it like this:
+
+```python
+training_images  = training_images / 255.0
+test_images = test_images / 255.0
+```
+If you tri without normilizaing, the loss will be higher. See more in exercise jupyter notebook below "[Exercise 7](./myExercise/Course_1_Part_4_Lesson_2_Notebook.ipynb)".
+
+### 1.2.4 Code of Neural Network Definition 
+
+```python
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape(28,28)),
+    keras.layers.Dense(128,activation=tf.nn.relu), #middle layer/ hidden layer#
+    keras.layers.Dense(10,activation=tf.nn.softmax)
+])
+```
+#### Flatten
+
+**Flatten** takes this 28 by 28 square and turns it into a simple linear array.
+
+Right now our data is 28x28 images, and 28 layers of 28 neurons would be infeasible, so it makes more sense to 'flatten' that 28,28 into a **784x1** (since 28*28=784). 
+
+Instead of wriitng all the code to handle that ourselves, we add the Flatten() layer at the begining, and when the arrays are loaded into the model later, they'll automatically be flattened for us.
+
+#### Middle layer/ Hiddern layer
+
+**Middle layer/ hiddern layer** has 128 neurons. And I'd like you to think about these as variables in a **function**. Maybe call them x1, x2 x3, etc. 
+
+For example, if you then say the **function** was y equals w1 times x1, plus w2 times x2, plus w3 times x3, all the way up to a w128 times x128. 
+$$y =w_1 * x_1 + w_2*x_2 + w_3*x_3 + ... + w_{128} * x_{128}$$
+By figuring out the values of w, then y will be nine, when you have the input value of the shoe.
+
+<img src="./img/cv_neural.png"/>
+
+
+You can modify the 128 here. For example change it to 1024 neurons. By **adding more Neurons** we have to do more calculations, slowing down the process, but in this case they have a good impact -- we do get more accurate. That doesn't mean it's always a case of 'more is better', you can hit the law of diminishing returns very quickly!
+
+
+#### Output layer
+ The last layer has 10 neurons in it because we have ten classes of clothing in the dataset. They should always match.
+
+**Rule of thumb**-- the **number of neurons** in the last layer should match the **number of classes** you are classifying for. In this case it's the digits 0-9, so there are 10 of them, hence you should have 10 neurons in your final layer.
+
+#### More
+More layers, more epochs, usually give us better accuracy. But not always.
+
+Try 15 epochs -- you'll probably get a model with a much better loss than the one with 5.
+ 
+Try 30 epochs -- you might see the loss value stops decreasing, and sometimes increases. This is a **side effect** of something called 'overfitting' which you can learn about [somewhere] and it's something you need to keep an eye out for when training neural networks. There's no point in wasting your time training if you aren't improving your loss, right! :)
+
+```python
+model.compile(optimizer = tf.train.AdamOptimizer(),
+              loss = 'sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+model.fit(training_images, training_labels, epochs=9)
+
+model.evaluate(test_images, test_labels)
+```
+
+
+
+*You can also tune the neural network by adding, removing and changing layer size to see the impact. If you want to go further, checkout this tutorial from Andrew on YouTube, which will clarify how dense connected layer's work from the theoretical and mathematical perspective. 
+More, plz see Andrew's vedio in Youtube ["What is Neurual Network?"](https://youtu.be/fXOsFF95ifk)*
+
+
+### 1.2.5 Callback
+
+If you want to stop the training when I reach a desired value?' -- i.e. 95% accuracy might be enough for you. 
+You can use callback, so in every epoch, you can callback to a code function, having checked the metrics. If they're what you want to say, then you can cancel the training at that point. See example in exercise jupyter notebook "[Exercise 8](./myExercise/Course_1_Part_4_Lesson_2_Notebook.ipynb)" or [Callback Example](./myExercise/Course_1_Part_4_Lesson_4_Notebook.ipynb).
+
+
+```python
+class myCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs={}):
+    if(logs.get('loss')<0.4):
+      print("\nReached 60% accuracy so cancelling training!")
+      self.model.stop_training = True
+```
+In it, we'll implement the **on_epoch_end** function, which gets called by the callback whenever the epoch ends. It also sends a **logs object** which contains lots of great information about the current state of training.
+
+<img src="./img/callback.png"/>
+
+### 1.2.6 Try it yourself
+
+[Official code](https://colab.research.google.com/github/lmoroney/dlaicourse/blob/master/Course%201%20-%20Part%204%20-
 
 
