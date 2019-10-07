@@ -44,5 +44,33 @@ Well, the answer is Y equals 2X minus 1. So whenever you see a Y, it's twice the
 ========================
 Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning
 Week 1
-The ‘Hello World’ of neural networks
+From rules to data
+
+In these videos you were given an introduction to the concepts and paradigms of Machine Learning and Deep Learning. You saw that the traditional paradigm of expressing rules in a coding language may not always work to solve a problem. As such, scenarios such as Computer Vision are very difficult to solve with rules-based programming. Instead, if we feed a computer with enough data that we describe (or label) as what we want it to recognize, given that computers are really good at processing data and finding patterns that match, then we could potentially ‘train’ a system to solve a problem. We saw a super simple example of that -- fitting numbers to a line. So now let’s go through a notebook and execute the code that trains a neural network to learn how a set of numbers we give it make up a line, so it can then extend the line if we need to.
+
+
+=================================
+
+Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning
+Week 1
+Working through ‘Hello World’ in TensorFlow and Python
+
+0:00
+In the previous section, you saw some details behind the concept and paradigms of machine learning. You saw how it was a change from rules-based expression using code to getting data, labeling that data, and then having a neural network figure out the patterns that bring about the rules. You looked through a very simple example that took some x and y values and figured out the relationship between them. Okay, now you're going to get hands-on with writing this code for yourself. Now you don't need a development environment to do it, and one way that you can use it is to use it right in the browser with something called Google Colaboratory. If you're familiar with Jupyter Notebooks in Python, you'll be right at home, and of course you can use Jupyter Notebooks too. Otherwise, consider Colab to be an environment that runs in the browser that lets you run, edit, and inspect your Python code. It's really cool for learning with. If you want more details about it, check out this video on YouTube. Here is the Colab environment that I'm using with the Notebook for this lesson loaded into it. I'll step through the lesson first, and then you can go and try it out for yourself. You can run the code by clicking the play button in a code block. Make sure you run each block in order or you might get some bugs. In this block, I am importing and setting up TensorFlow, Keras, and NumPy. Next, I'll define the neural network as we discussed. It's one layer, with one neuron, and one input value. Now I'm going to compile the neural network using the loss function and the optimizer. Remember, these help the neural network guess the pattern, measure how well or how badly the guess performed, before trying again on the next epoch, and slowly getting more accurate. Here's where we give it the data, where we have a known x and unknown corresponding y, and we want to figure out the relationship between them. These are fed in using NumPy arrays. Here's where we do the training and the machine learns the patterns. We're asking the model to fit the x's to the y's and it will try for 500 epochs. Each epoch is where it makes a guess, uses the loss function to figure out how well or how badly it did, and then use the optimizer to make another guess. When it's run, keep an eye on the loss on the right-hand side. Remember, it knows the correct answer for the values we've fed in, so it can compare it's guess against them. When I start, my loss is quite high, i.e the guess wasn't that great. But epoch by epoch, you can see the loss getting lower and lower. So the neural network is getting closer to spotting the relationship. By the time 500 epochs have transpired, the loss is really, really small, meaning that for this data, it has come really close to figuring out the relationship between x and y. So let's see what happens if we give it an x that it hadn't previously seen. In this case, 10. What do you think the answer will be? As you can see, it ends up as 18.98, very close to 19 but not quite 19. Do you remember the reasons why? Check back to the lesson in the previous video to see the answer to this.
+
+=======================
+
+Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning
+Week 1
+Try it for yourself
+
+Ok, now that you’ve seen me do it, why don’t you give it a try for yourself. You can download the workbook 
+here https://github.com/lmoroney/dlaicourse/blob/master/Course%201%20-%20Part%202%20-%20Lesson%202%20-%20Notebook.ipynb
+if you want to try it out for yourself. Or, if you prefer, you can execute it right now in Google Colaboratory at this link. https://colab.sandbox.google.com/github/lmoroney/dlaicourse/blob/master/Course%201%20-%20Part%202%20-%20Lesson%202%20-%20Notebook.ipynb
+
+Now while this might seem very simple, you’ve actually gotten the basics for how neural networks work. As your applications get more complex, you’ll continue to use the same techniques. For now, let’s do a quick test with Multiple Choice Questions to see what you’ve learned.
+
+
+
+
 
