@@ -51,7 +51,7 @@ https://lodev.org/cgtutor/filtering.html
 
 #### 1.3.1.1 Convolution
 
-<img src="./img/convolution.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/convolution.png)
 
 #### Explain how convolution works:
 
@@ -64,10 +64,10 @@ So, for example, in this case, our pixel has the value 192, and its upper left n
 The idea here is that some convolutions will change the image in such a way that certain features in the image get emphasized. 
 
 So, for example, if you look at this filter, then the vertical lines in the image really pop out: 
-<img src="./img/cnnverticalEmphasize.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnnverticalEmphasize.png)
 
 With this filter, the horizontal lines pop out:
-<img src="./img/cnnhorizontalEmphasize.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnnhorizontalEmphasize.png)
 
 
 ------
@@ -78,7 +78,7 @@ With this filter, the horizontal lines pop out:
 
 #### 1.3.1.2 Pooling
 
-<img src="./img/cnnpooling.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnnpooling.png)
 
 Simply, **pooling is a way of compressing an image**. **A technique to reduce the information in an image while maintaining features**.
 
@@ -94,7 +94,7 @@ This will preserve the features that were highlighted by the convolution, while 
 
 For **convolution** and **pooling** in code, we just need to add few layers before flatterning layer.
 
-<img src="./img/cnncode.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnncode.png)
 
 - **Conv2D** -- First **convolution layer**, asking keras to generate **64 filters** for us. Those filters are not random. They start with a set of **known good filters** in a similar way **to the pattern** (fitting that you saw earlier). The ones (that work) from that set (are learned over time). These **filters** are 3 by 3, their **activation** is **relu**, which means the negative values will be thrown way, and finally the **input shape** is as before, the **28 by 28**. That extra **1** just means that we are tallying(计数 理货) using a single byte for **color depth**. As we saw before our image is our gray scale, so we just use one byte.
 
@@ -115,7 +115,7 @@ The **last 3 layers** are same as before in 1.2.
 
 Allows you to inspect the layers of the model, and see the journey of the image through the convolutions, and here is the output.
 
-<img src="./img/cnnmodelsummary.png"/>
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnnmodelsummary.png)
 
 - **First** **line**, the output shape **isn't** the data 28 by 28, so *y* is the output, **26 by 26**. Because logically, the first pixel that you can do calculations on is this one, because this one of course has all eight neighbors that a three by three filter needs. 
 
@@ -123,7 +123,7 @@ So the output of the convolution will be two pixels smaller on x, and two pixels
 
 If your filter is **five-by-five** for similar reasons, your output will be **four** smaller on x, and **four** smaller on y. So, that's y with a **three by three** filter, our output from the 28 by 28 image, is now 26 by 26, we've removed that one pixel on x and y, and each of the borders.
 
-<img src="./img/cnnfirstpixel.png">
+![alt_text](https://github.com/DayuanTan/AITensorFlowSpecialization/raw/master/img/cnnfirstpixel.png)
 
 - **Second** **line** (the first pooling layer), remember we specified it to be **two-by-two**, thus turning four pixels into one, and having our x and y. So, now our output gets reduced from **26 by 26**, to **13 by 13**.
 
